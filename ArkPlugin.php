@@ -36,7 +36,7 @@ class ArkPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_filters = array(
         'ark_format_names',
         'ark_format_qualifiers',
-        'filterDisplayCollectionDublinCoreIdentifier' => array('Display', 'Collection', 'Dublin Core', 'Identifier'),
+        'filterDisplayCollectionDublinCoreIdentifier' => array('Display', 'Collection', 'Dublin Core', 'Source'),
         'filterDisplayItemDublinCoreIdentifier' => array('Display', 'Item', 'Dublin Core', 'Identifier'),
     );
 
@@ -327,9 +327,30 @@ where: http://example.com/ark:/99999/',
                     'action' => 'policy',
                     'naan' => $naan,
             )));
+            
+            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+            
+//modification for SPOKEdb legacy URLs without NAAN included
+
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        if (strpos($actual_link, 'xt7') !== false){
+        if (strpos($actual_link, 'ark:/16417/') !== false) {
 
             $protocolBase = "ark:/$naan";
+
+        } else if (strpos($actual_link, 'ark:/16417/') == false) {
+            $protocolBase = "";
         }
+
+} else {
+        $protocolBase = "ark:/$naan";
+}
+
+//end of modification for SPOKEdb legacy URLs
+
+            //$protocolBase = "ark:/$naan";
+
+}
 
         // Routes for non-arks unique identifiers.
         else {
@@ -357,6 +378,8 @@ where: http://example.com/ark:/99999/',
             array(
                 'name' => '\w+',
         )));
+        
+        
 
         // A regex is needed, because a variant is separated by a ".", not a
         // "/".
