@@ -7,10 +7,13 @@ if ($html) :
     ));
 ?>
 <div id="primary">
+    <div id="container">
     <?php echo flash(); ?>
-    <h1><?php echo $title; ?></h1>
-    <?php echo $policy; ?>
+    <div id="left"><h1><?php echo $title; ?></h1></div>
 </div>
+    <div id="ark_policy">
+    <?php echo $policy; ?></div>
+    </div>
 <?php echo foot(); ?>
 <?php
 
