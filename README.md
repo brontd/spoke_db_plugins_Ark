@@ -1,5 +1,14 @@
-Ark & Noid (plugin for Omeka)
+# Ark & Noid
 =============================
+
+## UK Library Customizations:
+
+1. /public_html/plugins/Ark/views/public/index/policy.php
+2. /public_html/plugins/Ark/views/helpers/Ark.php
+3. /public_html/plugins/Ark/views/helpers/GetRecordFromArk.php
+4. /public_html/plugins/Ark/ArkPlugin.php
+
+-----
 
 [Ark & Noid] is a plugin for [Omeka] that creates and manages [ark identifiers],
 that can replace the default [cool URIs] of each record, that corresponds to the
